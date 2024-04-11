@@ -3,6 +3,7 @@
 import re
 from typing import List
 import logging
+import mysql.connector
 import os
 
 
@@ -51,3 +52,31 @@ def get_logger() -> logging.Logger:
 
     logger.addHandler(dest_handler)
     return logger
+
+
+def get_db() -> mysql.connector.connection.MYSQLConnection:
+    """creates a mysql connection using provided credentials in the env"""
+    db_connect = mysql.connector.connect(
+        user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+        host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        database=os.getenv('PERSONAL_DATA_DB_NAME')
+    )
+    return db_connect
+
+
+db = get_db()
+cursor = db.cursor()
+cursor.execute("SELECT * FROM users;")
+
+row_headers = [field[0] for field in cursor.description]
+logger = get_logger()
+
+for row in cursor:
+    info_answer = ''
+    for f, p in zip(row, row_headers):
+        info_answer += f'{p}={(f)}; '
+    logger.info(info_answer)
+
+cursor.close()
+db.close()
