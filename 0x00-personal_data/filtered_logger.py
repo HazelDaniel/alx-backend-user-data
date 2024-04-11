@@ -65,7 +65,7 @@ def get_db() -> mysql.connector.connection.MYSQLConnection:
     return db_connect
 
 
-if __name__ == "__main__":
+def main():
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
@@ -81,3 +81,7 @@ if __name__ == "__main__":
 
     cursor.close()
     db.close()
+
+
+if __name__ == "__main__":
+    main()
