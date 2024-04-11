@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-"""This module implements a function that hashes a
-    password by returning its byte string . and a
-    function to validate a password encryption"""
-import bcrypt
+""" Using regex to replace occurrences of field values in ; separated fields"""
+import re
+from typing import List
+import logging
+import os
 
 
-def hash_password(password: str) -> bytes:
-    """generates a sort and hash for a password"""
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
-
-def is_valid(hashed_password: bytes, password: str) -> bool:
-    """ did a password match a provided hashed password?
-        """
-    return bcrypt.checkpw(password.encode('utf-8'), hashed_password)
+def filter_datum(fields: List[str], redaction: str, message: str,
+                 separator: str) -> str:
+    """obfuscates log messages with regex"""
+    for field in fields:
+        message = re.sub(f'{field}=(.*?){separator}',
+                         f'{field}={redaction}{separator}', message)
+    return message
