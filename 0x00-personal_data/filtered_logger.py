@@ -65,18 +65,19 @@ def get_db() -> mysql.connector.connection.MYSQLConnection:
     return db_connect
 
 
-db = get_db()
-cursor = db.cursor()
-cursor.execute("SELECT * FROM users;")
+if __name__ == "__main__":
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
 
-row_headers = [field[0] for field in cursor.description]
-logger = get_logger()
+    row_headers = [field[0] for field in cursor.description]
+    logger = get_logger()
 
-for row in cursor:
-    info_answer = ''
-    for f, p in zip(row, row_headers):
-        info_answer += f'{p}={(f)}; '
-    logger.info(info_answer)
+    for row in cursor:
+        info_answer = ''
+        for f, p in zip(row, row_headers):
+            info_answer += f'{p}={(f)}; '
+        logger.info(info_answer)
 
-cursor.close()
-db.close()
+    cursor.close()
+    db.close()
