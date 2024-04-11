@@ -77,7 +77,7 @@ if __name__ == "__main__":
         info_answer = ''
         for f, p in zip(row, row_headers):
             info_answer += f'{p}={(f)}; '
-        logger.info(info_answer)
+        logger.info(info_answer.strip())
 
     cursor.close()
     db.close()
