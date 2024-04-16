@@ -11,7 +11,7 @@ from flask_cors import (CORS, cross_origin)
 import os
 
 
-env_auth_type: str | None = os.environ.get("AUTH_TYPE")
+env_auth_type: str = os.environ.get("AUTH_TYPE")
 auth = BasicAuth() if env_auth_type == "basic_auth" else Auth()
 app = Flask(__name__)
 app.register_blueprint(app_views)
