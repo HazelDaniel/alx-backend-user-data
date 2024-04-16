@@ -11,6 +11,7 @@ import os
 class BasicAuth(Auth):
     """ Basic Authentication Class """
     def __init__(self):
+        """entry point into the class"""
         pass
 
     def extract_base64_authorization_header(self,
