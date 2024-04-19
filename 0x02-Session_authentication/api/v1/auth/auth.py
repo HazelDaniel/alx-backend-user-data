@@ -18,6 +18,7 @@ class Auth:
             return True
 
         is_slashed = True if path[l_path - 1] == '/' else False
+        print(f"is endpoint slashed ? :{is_slashed}")
 
         tmp_path = path
         if not is_slashed:
