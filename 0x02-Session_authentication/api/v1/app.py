@@ -23,7 +23,6 @@ def authentication():
     """Perform authentication before handling each request."""
     if auth:
         request.current_user = auth.current_user(request)
-        print(f" the request path is {request.path}")
         if auth.require_auth(request.path, ['/api/v1/status/',
                                             '/api/v1/unauthorized/',
                                             '/api/v1/forbidden/',
@@ -39,7 +38,6 @@ def authentication():
 def not_found(error) -> str:
     """ Not found handler
     """
-    print("hitting the not found endpoint")
     return jsonify({"error": "Not found"}), 404
 
 
