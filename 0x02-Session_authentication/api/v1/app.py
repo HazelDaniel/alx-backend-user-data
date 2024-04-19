@@ -22,8 +22,8 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 def authentication():
     """Perform authentication before handling each request."""
     if auth:
-        print("there is authentication provided")
         request.current_user = auth.current_user(request)
+        print(f" the request path is {request.path}")
         if auth.require_auth(request.path, ['/api/v1/status/',
                                             '/api/v1/unauthorized/',
                                             '/api/v1/forbidden/',
