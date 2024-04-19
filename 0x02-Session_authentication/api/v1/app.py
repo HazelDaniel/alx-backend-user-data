@@ -27,7 +27,6 @@ def authentication():
                                             '/api/v1/unauthorized/',
                                             '/api/v1/forbidden/',
                                             '/api/v1/auth_session/login/']):
-            print("hitting the login endpoint or status or unauthorized endpionts")
             if not auth.authorization_header(request) \
                     and not auth.session_cookie(request):
                 return abort(401)
@@ -39,6 +38,7 @@ def authentication():
 def not_found(error) -> str:
     """ Not found handler
     """
+    print("hitting the not found endpoint")
     return jsonify({"error": "Not found"}), 404
 
 
