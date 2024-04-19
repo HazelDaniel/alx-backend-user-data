@@ -3,6 +3,7 @@
 """
 from flask import request
 from typing import List, TypeVar
+import os
 
 
 class Auth:
@@ -18,7 +19,6 @@ class Auth:
             return True
 
         is_slashed = True if path[l_path - 1] == '/' else False
-        print(f"is endpoint slashed ? :{is_slashed}")
 
         tmp_path = path
         if not is_slashed:
@@ -51,4 +51,4 @@ class Auth:
         """gets a cookie value from a request."""
         if not request:
             return None
-        return request.cookies.get(getenv('SESSION_NAME'), None)
+        return request.cookies.get(os.getenv('SESSION_NAME'), None)
