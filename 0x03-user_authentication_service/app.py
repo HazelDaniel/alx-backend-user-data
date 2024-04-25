@@ -32,9 +32,9 @@ def login() -> str:
     email, password = request.form.get("email"), request.form.get("password")
     if not AUTH.valid_login(email, password):
         abort(401)
-    response = jsonify({"email": email, "message": "logged in"})
-    response.set_cookie("session_id", AUTH.create_session(email))
-    return response
+    res = jsonify({"email": email, "message": "logged in"})
+    res.set_cookie("session_id", AUTH.create_session(email))
+    return res
 
 
 @app.route("/sessions", methods=["DELETE"])
